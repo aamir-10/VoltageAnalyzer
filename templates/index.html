@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voltage Analysis Charts</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+
+            color: #fff;
+            line-height: 1.6;
+        }
+        h1 {
+            text-decoration:underline;
+            text-align: center;
+            padding: 30px 0;
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease-in-out;
+        }
+        .chart-container {
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(179, 230, 234, 0.95);
+            color: #000;
+            max-width: 1000px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .chart-container:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 8px 35px rgba(0,0,0,0.4);
+        }
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1e3c72;
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 8px;
+        }
+        .data {
+            text-decoration:underline;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-top: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+            animation: fadeIn 1.2s ease-in-out;
+        }
+        .list {
+            width:60%;
+            margin: 20px auto;
+            background: rgba(179, 230, 234, 0.95);
+            border-radius: 15px;
+            padding: 25px 80px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .desc {
+            padding:0 100px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .desc:hover {
+            transform: translateY(-5px);
+        }
+        li {
+            list-style-type: none;
+            padding: 12px;
+            color: black;
+            text-align: justify;
+            position: relative;
+            background: linear-gradient(90deg, #f0f0f0, #ffffff);
+            margin-bottom: 10px;
+            border-radius: 10px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        li:hover {
+            background: linear-gradient(90deg, #dbeafe, #ffffff);
+            transform: scale(1.02);
+        }
+        li::before {
+            position: absolute;
+            left: -25px;
+            font-size: 1.2rem;
+            color: #ff9900;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        @keyframes fadeInDown {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        @keyframes fadeInUp {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        @keyframes pulse {
+            0% {transform: scale(1);}
+            50% {transform: scale(1.2);}
+            100% {transform: scale(1);}
+        }
+    </style>
+</head>
+<body>
+    <h1>Voltage Analysis</h1>
+    {% for chart, title in charts %}
+        <div class="chart-container">
+            <div class="chart-title">{{ title }}</div>
+            {{ chart|safe }}
+        </div>
+    {% endfor %}
+    <h2 class="data">Data Insights</h2>
+    <div class="desc">
+        <ul class="list">
+            <li>⚡ The data shows how the <strong>voltage changes over time</strong>, with regular ups and downs forming a repeating pattern. In the dataset provided, the 1st column contains the Voltage Values and the second column contains the corresponding timestamp.</li>
+            <li>⚡ The 1000-point moving average (red line) <strong>smooths out</strong> short-term changes, helping us see the general trend more clearly.</li>
+            <li>⚡ The 5000-point moving average (green line) is <strong>even smoother</strong>, showing the overall long-term voltage level.</li>
+            <li>⚡ From the chart, it looks like the voltage fluctuates in <strong>cycles</strong> but generally stays between about 30 and 100 units. As <strong>no instances</strong> were found when the voltage level was below 20 units.</li>
+            <li>⚡ These patterns could suggest the system is <strong>operating normally</strong> within a certain range, with no extreme drops below the safe level.</li>
+        </ul>
+    </div>
+</body>
+</html>
