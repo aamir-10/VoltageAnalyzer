@@ -9,7 +9,6 @@ def generate_charts():
 
     charts = []
 
-    # Chart 1: Original + MA1000 + MA5000
     fig1 = go.Figure()
     fig1.add_trace(go.Scatter(x=df['Timestamp'], y=df['Values'], mode='lines', name='Original Voltage'))
     df['MA_1000'] = df['Values'].rolling(1000).mean()
@@ -19,7 +18,6 @@ def generate_charts():
     fig1.update_xaxes(tickformat="%d-%m-%Y %H:%M:%S", ticklabelmode="instant",nticks=60, tickangle=90)
     charts.append((fig1,"Voltage Over Time"))
 
-    # Chart 2: MA5
     df['MA_5'] = df['Values'].rolling(5).mean()
     fig2 = go.Figure()
     fig2.add_trace(go.Scatter(x=df['Timestamp'], y=df['Values'], name='Original Values', line=dict(color='purple')))
@@ -27,7 +25,6 @@ def generate_charts():
     fig2.update_xaxes(tickformat="%d-%m-%Y %H:%M:%S", ticklabelmode="instant",nticks=60, tickangle=90)
     charts.append((fig2, "5-Day Moving Average"))
 
-    # Chart 3: Peaks & Lows
     peaks, _ = find_peaks(df['Values'])
     lows, _ = find_peaks(-df['Values'])
     peak_tbl = df.iloc[peaks][['Timestamp', 'Values']].reset_index(drop=True)
@@ -40,7 +37,6 @@ def generate_charts():
     fig3.update_xaxes(tickformat="%d-%m-%Y %H:%M:%S", ticklabelmode="instant",nticks=60, tickangle=90)
     charts.append((fig3, "Peaks and Lows"))
 
-    # Chart 4: Downward Acceleration
     df['diff'] = df['Values'].diff()
     df['diff_change'] = df['diff'].diff()
     downward_acc = df[(df['diff'] < 0) & (df['diff_change'] < 0)]
@@ -53,3 +49,4 @@ def generate_charts():
     charts.append((fig4, "Downward Acceleration"))
 
     return charts
+
