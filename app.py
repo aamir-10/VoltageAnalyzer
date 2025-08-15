@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import plotly.io as pio
-from charts import generate_charts  # import your function
+from charts import generate_charts  
 
 app = Flask(__name__)
 
@@ -16,3 +16,4 @@ def index():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+
